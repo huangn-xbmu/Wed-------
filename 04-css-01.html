@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法芙娜 | 法式烘焙艺术</title>
+    <style>
+        :root {
+            --primary-color: #E8C495;    /* 主色调 - 香草奶油色 */
+            --secondary-color: #6B4226;  /* 辅助色 - 深巧克力色 */
+            --accent-color: #D4A76A;     /* 强调色 - 焦糖色 */
+            --light-bg: #FFF9F0;        /* 浅色背景 */
+            --text-dark: #3E2723;          /* 深色文字 */
+            --text-light: #5D4037;         /* 浅色文字 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            padding-top: 60px;
+        }
+
+        /* 导航样式 */
+        nav {
+            background: var(--primary-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav li {
+            margin: 0 2rem;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* 主视觉区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(232, 196, 149, 0.2), rgba(107, 66, 38, 0.3)),
+                        url('https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 2rem;
+            border: 1px solid var(--primary-color);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background: var(--accent-color);
+            color: var(--text-dark);
+        }
+
+        /* 产品展示区 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            position: relative;
+            font-size: 2.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+
+        .products {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--primary-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .product-info p {
+            color: var(--text-light);
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0.5rem 0 !important;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+            color: var(--text-dark);
+        }
+
+        /* 关于我们区域 */
+        .about {
+            padding: 5rem 2rem;
+            background: var(--light-bg);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .product-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="#products">产品展示</a></li>
+            <li><a href="#about">关于我们</a></li>
+            <li><a href="#contact">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>法式烘焙艺术</h1>
+            <p>法芙娜传承法国百年烘焙工艺，精选顶级原料，为您带来纯正的法式烘焙体验。每一款产品都凝聚着我们对品质的执着追求。</p>
+            <a href="#products" class="cta-button">探索美味</a>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <h2 class="section-title">我们的产品</h2>
+        <div class="product-grid">
+            <!-- 法式可颂 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/croissant.jpg')"></div>
+                <div class="product-info">
+                    <h3>经典可颂</h3>
+                    <p>采用法国AOP认证黄油，16层酥皮工艺，外酥内软，香气浓郁</p>
+                    <p class="price">¥22</p>
+                    <span class="tag">招牌推荐</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 法棍面包 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/Baguette.jpg')"></div>
+                <div class="product-info">
+                    <h3>传统法棍</h3>
+                    <p>遵循法国传统配方，外皮金黄酥脆，内里柔软有嚼劲</p>
+                    <p class="price">¥18</p>
+                    <span class="tag">每日限量</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 黑森林蛋糕 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/Black/Forest/Cake.jpg')"></div>
+                <div class="product-info">
+                    <h3>黑森林蛋糕</h3>
+                    <p>进口黑樱桃与纯脂巧克力，传统德国工艺制作</p>
+                    <p class="price">¥128/6寸</p>
+                    <span class="tag">需提前预订</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 马卡龙礼盒 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/macaron.jpg')"></div>
+                <div class="product-info">
+                    <h3>巴黎马卡龙</h3>
+                    <p>8种经典口味，外酥内软，甜而不腻，法国空运原料</p>
+                    <p class="price">¥98/盒</p>
+                    <span class="tag">节日限定</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 全麦吐司 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/whole/wheat/toast.jpg')"></div>
+                <div class="product-info">
+                    <h3>全麦吐司</h3>
+                    <p>100%全麦粉制作，无添加糖，健康早餐首选</p>
+                    <p class="price">¥28/条</p>
+                    <span class="tag">健康系列</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+            
+            <!-- 水果丹麦酥 - 更新为更匹配的图片 -->
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('images/Danish/pastry.jpg')"></div>
+                <div class="product-info">
+                    <h3>水果丹麦酥</h3>
+                    <p>当季新鲜水果配香酥饼底，酸甜可口</p>
+                    <p class="price">¥25</p>
+                    <span class="tag">季节限定</span>
+                    <button class="add-to-cart">加入购物车</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="section-title">关于法芙娜</h2>
+        <div class="about-content">
+            <p>法芙娜创立于2015年，由法国蓝带烘焙大师Pierre Dupont先生亲传弟子创办。我们坚持使用法国进口原料，包括法国AOP认证黄油、Valrhona巧克力、法国T55面粉等顶级食材。</p>
+            <p>我们的烘焙师团队定期前往法国进修学习，将最纯正的法式烘焙技艺带回中国。所有产品均采用传统工艺制作，不使用任何人工添加剂和防腐剂。</p>
+            <p>法芙娜在兰州已拥有5家门店，荣获"兰州最佳法式面包房"、"米其林推荐烘焙店"等多项荣誉，致力于为顾客带来最地道的法式烘焙体验。</p>
+        </div>
+    </section>
+
+    <footer id="contact" style="background: var(--secondary-color); color: white; padding: 3rem 2rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">联系我们</h2>
+            <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="margin-bottom: 1rem;">营业时间</h3>
+                    <p>周一至周日: 9:00 - 21:00</p>
+                    <p>节假日: 8:00 - 22:00</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 1rem;">旗舰店地址</h3>
+                    <p>兰州市城关区法式风情街88号</p>
+                    <p>(近地铁1号线张掖路站2号口)</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 1rem;">联系方式</h3>
+                    <p>电话: 021-68781254</p>
+                    <p>邮箱: contact@fafuna.com</p>
+                </div>
+            </div>
+            <div style="margin-top: 2rem;">
+                <a href="#" style="color: var(--primary-color); margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">微信公众号</a>
+                <a href="#" style="color: var(--primary-color); margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">Instagram</a>
+                <a href="#" style="color: var(--primary-color); margin: 0 1rem; text-decoration: none; font-size: 1.2rem;">小红书</a>
+            </div>
+            <p style="margin-top: 2rem; color: rgba(255,255,255,0.7); font-size: 0.9rem;">© 2023 法芙娜烘焙 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>
